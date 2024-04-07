@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+// const prisma = new PrismaClient({log:["query"]}); //To Log the queries
 
 async function main() {
   // --- Create User
@@ -11,9 +12,28 @@ async function main() {
   //     },
   //   });
   //   console.log(user);
+  // .createMany also can be used
   // ---- Get all users
   //   const users = await prisma.user.findMany();
   //   console.log(users);
+  //   select or include can't be used
+  //   distinct: property for unique key
+  //   take: work as limit
+  //   skip: work as offset
+  //   orderBy: for asc or desc on a property
+  //   equals: exact match
+  //   not: not euqals
+  //   in: in the array
+  //   notIn: not in the arrya
+  //   lt: less than
+  //   gt: greater than
+  //   lte and gte also there
+  //   contains,endsWith, startsWith
+  // AND: for combining multiple queries
+  // OR, NOT also there
+  //  every, some, none also there for relationship data
+  //   .findUnique is also there
+  //   .findFirst also
   // --- Create an article and associate it with user
   //   const article = await prisma.article.create({
   //     data: {
@@ -55,6 +75,7 @@ async function main() {
   //     },
   //   });
   //   console.log(users);
+  //   select: also can be used
   //   --- Loop Users articles
   //   users.forEach((user) => {
   //     console.log(`User: ${user.name}, Email: ${user.email}`);
@@ -74,12 +95,16 @@ async function main() {
   //     },
   //   });
   //   console.log(user);
+  //   updateMany also there
+  //   increment, decrement, multiply, divide can be used on any number like age
+  //   connect and disconnect can be used to add or remove in a specific relation with id
   // --- Remove data
   //   const article = await prisma.article.delete({
   //     where: {
   //       id: 1,
   //     },
   //   });
+  //   deleteMany also there
   //   console.log(article);
   //   console.log(articles);
 }

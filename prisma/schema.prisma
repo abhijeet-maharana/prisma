@@ -10,17 +10,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id  Int @id @default(autoincrement())
-  email String  @unique
-  name String?
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
   articles Article[]
 }
 
-model Article{
-  id        Int     @id @default(autoincrement())
-  title     String
-  body   String?
-  author  User  @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Article {
+  id       Int     @id @default(autoincrement())
+  title    String
+  body     String?
+  author   User    @relation(fields: [authorId], references: [id])
+  authorId Int
 }
+
+// Boolean, BigInt, Float, Decimal, DateTime, Json (sqlit doesn't support), Bytes, Unsupported("")
+//Auto relationships on save
+//id       String     @id @default(uuid())
+// writtenPosts      Post[]           @relation("WrittenPosts")
+// favoritePosts     Post[]           @relation("FavoritePosts")
+// ->
+// author        User       @relation("WrittenPosts", fields: [authorId], references: [id])
+// authorId      String
+// favoritedBy   User?      @relation("FavoritePosts", fields: [favoritedById], references: [id])
+// favoritedById String?
+//for many to many
+//  categories Category[]
+//  ->
+//  posts Post[]
+// user preference
+// userPreference    UserPreferenece? @relation(fields: [userPrefereneceId], references: [id])
+// userPrefereneceId String?          @unique
+// ->
+//   model UserPreferenece {
+//   id           String  @id @default(uuid())
+//   emailUpdates Boolean
+//   user         User?
+// }
+//extra
+//  createdAt     DateTime   @default(now())
+// updatedAt     DateTime   @updatedAt
+// block level attribute :
+//  @@unique([age, name]) -> can't have same name and age
+//  @@index([email])
+// @@id([title, authorId]) -> id is actually represented by the title and author id
+//enum
+// enum Role {
+//   BASIC
+//   ADMIN
+// }
+// ->
+//  role Role @default(BASIC)
